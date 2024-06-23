@@ -8,28 +8,21 @@ const formatter = new Intl.NumberFormat("id-ID", {
 })
 function CCard(props) {
   const [jmlitem,setJmlitem] = useState(0);
-  const cardref = useRef(null);
+  const icard = useRef(null);
   useEffect(()=>{
-      if(jmlitem<0 || jmlitem==""){
-        setJmlitem(parseInt(0));
-      }else if(jmlitem=="."){
-        setJmlitem(jmlitem);
-      }
-  },[jmlitem])
-
-  function calculate(num){
-    let isjml = jmlitem+num;
-    setJmlitem(isjml);
-    if(isjml<0){
-      cardref.current.classList.add("quake");
+    if(jmlitem<0){
+      setJmlitem(0);
+      icard.current.classList.add('quake');
       setTimeout(() => {
-        cardref.current.classList.remove("quake");
+        icard.current.classList.remove('quake');
       }, 500);
     }
-    
-  }
+
+  },[jmlitem])
+
+  
   return (
-    <Card ref={cardref} style={{ width: '18rem' }}>
+    <Card ref={icard} style={{ width: '18rem' }}>
       <Card.Img variant="top" src={props.dtitem.img} />
       <Card.Body>
         <Card.Title>{props.dtitem.nama}</Card.Title>
@@ -39,12 +32,11 @@ function CCard(props) {
         <Card.Text>
         {formatter.format(props.dtitem.harga)}
         </Card.Text>
-
         <div className='row'>
           <div className='col' style={{display: "flex",justifyContent: "center"}}>
-            <Button variant="primary" onClick={()=>{calculate(-1)}}>-</Button>
-            <input onClick={(e)=>e.target.select()} onChange={(e)=>e.target.value==""||e.target.value=="e"?setJmlitem(0):setJmlitem(parseInt(e.target.value))} value={parseInt(jmlitem)} type='number' style={{textAlign:"center",width: "70%",margin: "0px 5px",borderRadius: "5px",outline: "none",border: "1px solid #8f8f8f"}}/>
-            <Button variant="primary" onClick={()=>{calculate(1)}}>+</Button>
+            <Button variant="primary" onClick={()=>{setJmlitem(jmlitem-1)}}>-</Button>
+            <input onClick={(e)=>{e.target.select()}} onChange={(e)=>e.target.value==""?setJmlitem(0):setJmlitem(parseInt(e.target.value))}  value={jmlitem} type='number' style={{textAlign:"center",width: "70%",margin: "0px 5px",borderRadius: "5px",outline: "none",border: "1px solid #8f8f8f"}}/>
+            <Button variant="primary" onClick={()=>{setJmlitem(jmlitem+1)}}>+</Button>
           </div>
         </div>
       </Card.Body>

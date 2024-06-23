@@ -4,7 +4,7 @@ function Home(params) {
     var data = [{
         img:"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTs1XYSSNFpQxuc-OYRru-OUegkn6vwWw31_A&s",
         nama:"Buah Buahan",
-        desc:"Buah buahan segar di ambil langsung dari petani.",
+        desc:"Buah buahan segar di ambil langsung dari petani. Buah buahan segar di ambil langsung dari petani. ",
         harga:15000
     },
     {
@@ -27,12 +27,15 @@ function Home(params) {
     //     return ritems;
     // }
     return(
-        <div  className="citems d-flex justify-content-center align-items-center">
-            {/* {ritem()} */}
-          {data.map((itm,i)=>{
-              return <CCard key={i} dtitem={itm}></CCard>
-          })}
+        <div className="d-flex justify-content-center align-items-center" style={{height:"100vh"}}>
+            <div  className="d-flex citems align-items-strech">
+                {/* {ritem()} */}
+            {data.map((itm,i)=>{
+                return <CCard key={i} dtitem={itm}></CCard>
+            })}
+            </div>
         </div>
+        
     );
 }
 
